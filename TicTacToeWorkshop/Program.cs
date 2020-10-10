@@ -10,6 +10,8 @@ namespace TicTacToeWorkshop
             game.createBoard();
             game.selectLetter();
             game.showBoard();
+            game.playerMove();
+            game.showBoard();
         }
     }
 }
