@@ -44,5 +44,13 @@ namespace TicTacToeWorkshop
             }
             Console.WriteLine("Player: " + this.player + ", Computer: " + this.computer);
         }
+        public void showBoard()
+        {
+            Console.WriteLine("\t" + board[1] + "|" + board[2] + "|" + board[3]);
+            Console.WriteLine("     ───────────");
+            Console.WriteLine("\t" + board[4] + "|" + board[5] + "|" + board[6]);
+            Console.WriteLine("     ───────────");
+            Console.WriteLine("\t" + board[7] + "|" + board[8] + "|" + board[9]);
+        }
     }
 }

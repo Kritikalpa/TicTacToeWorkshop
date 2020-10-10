@@ -9,6 +9,7 @@ namespace TicTacToeWorkshop
             TicTacToeGame game = new TicTacToeGame();
             game.createBoard();
             game.selectLetter();
+            game.showBoard();
         }
     }
 }
