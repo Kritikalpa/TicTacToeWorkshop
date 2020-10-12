@@ -10,6 +10,7 @@ namespace TicTacToeWorkshop
         public char[] board;
         public char player;
         public char computer;
+        public string currentPlayer;
 
         public void createBoard()
         {
@@ -76,6 +77,26 @@ namespace TicTacToeWorkshop
             return (choice == 0) ? "player" : "computer"; 
         }
 
+        public void gameStatus(char symbol)
+        {
+            if (!this.isWinner(symbol))
+            {
+                if (isTie())
+                {
+                    Console.WriteLine("Game is tied");
+                }
+                else
+                {
+                    this.currentPlayer = (this.currentPlayer == "player") ? "computer" : "player";
+                }
+                
+            }
+            else
+            {
+                Console.WriteLine(this.currentPlayer + " is the winner") ;
+            }
+        }
+
         public bool isWinner(char symbol)
         {
             return ((this.board[1] == symbol && this.board[2] == symbol && this.board[3] == symbol) ||
@@ -86,6 +107,20 @@ namespace TicTacToeWorkshop
                 (this.board[3] == symbol && this.board[6] == symbol && this.board[9] == symbol) ||
                 (this.board[1] == symbol && this.board[5] == symbol && this.board[9] == symbol) ||
                 (this.board[3] == symbol && this.board[5] == symbol && this.board[7] == symbol));
+        }
+
+        public bool isTie()
+        {
+            bool tie = true;
+            for (int index = 1; index < 10; index++)
+            {
+                if (this.board[index] == ' ')
+                {
+                    tie = false;
+                    break;
+                }
+            }
+            return tie;
         }
     }
 }

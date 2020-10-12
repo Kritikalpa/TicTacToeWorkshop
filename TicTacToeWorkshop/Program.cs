@@ -11,16 +11,13 @@ namespace TicTacToeWorkshop
             game.selectLetter();
             game.showBoard();
             string firstPlayer = game.getWhoStartsFirst();
-            if (firstPlayer == "player")
+            game.currentPlayer = firstPlayer;
+            if (game.currentPlayer.Equals("player"))
             {
                 game.playerMove();
                 game.showBoard();
-                bool isWinner = game.isWinner(game.player);
-                if (isWinner)
-                {
-                    Console.WriteLine("Player is the winner");
-                }
-            } 
+                game.gameStatus(game.player);
+            }
         }
     }
 }
