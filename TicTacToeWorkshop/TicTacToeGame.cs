@@ -67,5 +67,13 @@ namespace TicTacToeWorkshop
         {
             return this.board[Int32.Parse(boardIndex)] == ' ';
         }
+
+        public string getWhoStartsFirst()
+        {
+            Random random = new Random();
+            int choice = random.Next(0,2);
+            Console.WriteLine(choice);
+            return (choice == 0) ? "player" : "computer"; 
+        }
     }
 }

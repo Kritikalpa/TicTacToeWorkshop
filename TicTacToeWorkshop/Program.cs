@@ -10,8 +10,12 @@ namespace TicTacToeWorkshop
             game.createBoard();
             game.selectLetter();
             game.showBoard();
-            game.playerMove();
-            game.showBoard();
+            string firstPlayer = game.getWhoStartsFirst();
+            if (firstPlayer == "player")
+            {
+                game.playerMove();
+                game.showBoard();
+            } 
         }
     }
 }
