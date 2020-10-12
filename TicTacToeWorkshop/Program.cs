@@ -15,6 +15,11 @@ namespace TicTacToeWorkshop
             {
                 game.playerMove();
                 game.showBoard();
+                bool isWinner = game.isWinner(game.player);
+                if (isWinner)
+                {
+                    Console.WriteLine("Player is the winner");
+                }
             } 
         }
     }

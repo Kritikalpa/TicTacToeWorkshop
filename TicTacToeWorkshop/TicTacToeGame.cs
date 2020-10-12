@@ -75,5 +75,17 @@ namespace TicTacToeWorkshop
             Console.WriteLine(choice);
             return (choice == 0) ? "player" : "computer"; 
         }
+
+        public bool isWinner(char symbol)
+        {
+            return ((this.board[1] == symbol && this.board[2] == symbol && this.board[3] == symbol) ||
+                (this.board[4] == symbol && this.board[5] == symbol && this.board[6] == symbol) ||
+                (this.board[7] == symbol && this.board[8] == symbol && this.board[9] == symbol) ||
+                (this.board[1] == symbol && this.board[4] == symbol && this.board[7] == symbol) ||
+                (this.board[2] == symbol && this.board[5] == symbol && this.board[8] == symbol) ||
+                (this.board[3] == symbol && this.board[6] == symbol && this.board[9] == symbol) ||
+                (this.board[1] == symbol && this.board[5] == symbol && this.board[9] == symbol) ||
+                (this.board[3] == symbol && this.board[5] == symbol && this.board[7] == symbol));
+        }
     }
 }
