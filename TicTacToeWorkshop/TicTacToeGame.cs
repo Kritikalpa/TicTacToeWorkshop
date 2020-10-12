@@ -57,10 +57,15 @@ namespace TicTacToeWorkshop
                 Console.WriteLine("Enter board position between 0-9");
                 boardIndex = Console.ReadLine();
             }
-            if (this.board[Int32.Parse(boardIndex)] ==  ' ')
+            if (isSpaceFree(boardIndex))
             {
                 this.board[Int32.Parse(boardIndex)] = this.player;
             }
+        }
+
+        public bool isSpaceFree(string boardIndex)
+        {
+            return this.board[Int32.Parse(boardIndex)] == ' ';
         }
     }
 }
