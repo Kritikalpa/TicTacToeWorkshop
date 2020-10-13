@@ -15,7 +15,6 @@ namespace TicTacToeWorkshop
 
         public void playGame()
         {
-            bool game = true;
             this.createBoard();
             this.selectLetter();
             this.showBoard();
@@ -29,7 +28,9 @@ namespace TicTacToeWorkshop
                 else
                 {
                     int computerMove = this.computerMove();
-                    
+                    this.board[computerMove] = this.computer;
+                    this.gameStatus(this.computer);
+
                 }
                 this.showBoard();
             }
@@ -156,12 +157,16 @@ namespace TicTacToeWorkshop
 
         public int computerMove()
         {
-            int winningMove = this.getWinningMove();
+            
+            int winningMove = this.getWinningMove(this.computer);
             if (winningMove != 0) return winningMove;
+            int playerWinningMove = this.getWinningMove(this.player);
+            if (playerWinningMove != 0) return playerWinningMove;
+            
             return 0;
         }
 
-        public int getWinningMove()
+        public int getWinningMove(char symbol)
         {
             char[] boardCopy = new char[10];
             Array.Copy(this.board, 0, boardCopy, 0, board.Length);
@@ -169,14 +174,18 @@ namespace TicTacToeWorkshop
             {
                 if (this.isSpaceFree(index, boardCopy))
                 {
-                    boardCopy[index] = this.player;
-                    if (isWinner(this.computer, boardCopy))
+                    boardCopy[index] = symbol;
+                    if (isWinner(symbol, boardCopy))
                     {
                         return index;
                     }
+                    else
+                    {
+                        boardCopy[index] = ' ';
+                    }
                 }
             }
-            this.gameStatus(this.computer);
+            
             return 0;
         }
     }
