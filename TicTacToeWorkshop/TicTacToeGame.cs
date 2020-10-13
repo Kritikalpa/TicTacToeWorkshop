@@ -11,6 +11,29 @@ namespace TicTacToeWorkshop
         public char player;
         public char computer;
         public string currentPlayer;
+        public bool gameOver = false;
+
+        public void playGame()
+        {
+            bool game = true;
+            this.createBoard();
+            this.selectLetter();
+            this.showBoard();
+            this.currentPlayer = this.getWhoStartsFirst();
+            while (!this.gameOver)
+            {
+                if(this.currentPlayer == "player")
+                {
+                    this.playerMove();
+                }
+                else
+                {
+                    int computerMove = this.computerMove();
+                    
+                }
+                this.showBoard();
+            }
+        }
 
         public void createBoard()
         {
@@ -58,15 +81,21 @@ namespace TicTacToeWorkshop
                 Console.WriteLine("Enter board position between 0-9");
                 boardIndex = Console.ReadLine();
             }
-            if (isSpaceFree(boardIndex))
+            int index = Int32.Parse(boardIndex);
+            if (isSpaceFree(index, this.board))
             {
-                this.board[Int32.Parse(boardIndex)] = this.player;
+                this.board[index] = this.player;
+                this.gameStatus(this.player);
+            }
+            else
+            {
+                this.playerMove();
             }
         }
 
-        public bool isSpaceFree(string boardIndex)
+        public bool isSpaceFree(int boardIndex, char[] board)
         {
-            return this.board[Int32.Parse(boardIndex)] == ' ';
+            return board[boardIndex] == ' ';
         }
 
         public string getWhoStartsFirst()
@@ -79,10 +108,11 @@ namespace TicTacToeWorkshop
 
         public void gameStatus(char symbol)
         {
-            if (!this.isWinner(symbol))
+            if (!this.isWinner(symbol, this.board))
             {
                 if (isTie())
                 {
+                    this.gameOver = true;
                     Console.WriteLine("Game is tied");
                 }
                 else
@@ -93,20 +123,21 @@ namespace TicTacToeWorkshop
             }
             else
             {
+                this.gameOver = true;
                 Console.WriteLine(this.currentPlayer + " is the winner") ;
             }
         }
 
-        public bool isWinner(char symbol)
+        public bool isWinner(char symbol, char[] board)
         {
-            return ((this.board[1] == symbol && this.board[2] == symbol && this.board[3] == symbol) ||
-                (this.board[4] == symbol && this.board[5] == symbol && this.board[6] == symbol) ||
-                (this.board[7] == symbol && this.board[8] == symbol && this.board[9] == symbol) ||
-                (this.board[1] == symbol && this.board[4] == symbol && this.board[7] == symbol) ||
-                (this.board[2] == symbol && this.board[5] == symbol && this.board[8] == symbol) ||
-                (this.board[3] == symbol && this.board[6] == symbol && this.board[9] == symbol) ||
-                (this.board[1] == symbol && this.board[5] == symbol && this.board[9] == symbol) ||
-                (this.board[3] == symbol && this.board[5] == symbol && this.board[7] == symbol));
+            return ((board[1] == symbol && board[2] == symbol && board[3] == symbol) ||
+                (board[4] == symbol && board[5] == symbol && board[6] == symbol) ||
+                (board[7] == symbol && board[8] == symbol && board[9] == symbol) ||
+                (board[1] == symbol && board[4] == symbol && board[7] == symbol) ||
+                (board[2] == symbol && board[5] == symbol && board[8] == symbol) ||
+                (board[3] == symbol && board[6] == symbol && board[9] == symbol) ||
+                (board[1] == symbol && board[5] == symbol && board[9] == symbol) ||
+                (board[3] == symbol && board[5] == symbol && board[7] == symbol));
         }
 
         public bool isTie()
@@ -121,6 +152,32 @@ namespace TicTacToeWorkshop
                 }
             }
             return tie;
+        }
+
+        public int computerMove()
+        {
+            int winningMove = this.getWinningMove();
+            if (winningMove != 0) return winningMove;
+            return 0;
+        }
+
+        public int getWinningMove()
+        {
+            char[] boardCopy = new char[10];
+            Array.Copy(this.board, 0, boardCopy, 0, board.Length);
+            for (int index = 1; index < 10; index++)
+            {
+                if (this.isSpaceFree(index, boardCopy))
+                {
+                    boardCopy[index] = this.player;
+                    if (isWinner(this.computer, boardCopy))
+                    {
+                        return index;
+                    }
+                }
+            }
+            this.gameStatus(this.computer);
+            return 0;
         }
     }
 }
