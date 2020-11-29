@@ -164,6 +164,9 @@ namespace TicTacToeWorkshop
             if (playerWinningMove != 0) return playerWinningMove;
             int cornerIndexMove = getCornerPosition();
             if (cornerIndexMove != 0) return cornerIndexMove;
+            if (isSpaceFree(5, this.board)) return 5;
+            int otherIndexMove = getOtherPosition();
+            if (otherIndexMove != 0) return otherIndexMove;
             return 0;
         }
 
@@ -196,6 +199,19 @@ namespace TicTacToeWorkshop
             foreach(int index in cornerIndex)
             {
                 if(isSpaceFree(index, this.board))
+                {
+                    return index;
+                }
+            }
+            return 0;
+        }
+
+        public int getOtherPosition()
+        {
+            int[] otherIndex = { 2, 4, 6, 8 };
+            foreach (int index in otherIndex)
+            {
+                if (isSpaceFree(index, this.board))
                 {
                     return index;
                 }
