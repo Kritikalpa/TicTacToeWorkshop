@@ -19,10 +19,10 @@ namespace TicTacToeWorkshop
             this.selectLetter();
             this.showBoard();
             this.currentPlayer = this.getWhoStartsFirst();
-            Console.WriteLine(this.currentPlayer);
             while (!this.gameOver)
             {
-                if(this.currentPlayer == "player")
+                Console.WriteLine("\n" + this.currentPlayer + " playing his move.....\n");
+                if (this.currentPlayer == "player")
                 {
                     this.playerMove();
                 }
@@ -34,6 +34,10 @@ namespace TicTacToeWorkshop
 
                 }
                 this.showBoard();
+            }
+            if (this.newGame())
+            {
+                this.playGame();
             }
         }
 
@@ -217,6 +221,18 @@ namespace TicTacToeWorkshop
                 }
             }
             return 0;
+        }
+
+        public bool newGame()
+        {
+            Console.WriteLine("\nDo you want to play a new game?");
+            Console.Write("(Y/N) : ");
+            char newLine = Console.ReadLine()[0];
+            if (newLine.Equals('Y')) {
+                this.gameOver = false;
+                return true;
+            }
+            else return false;
         }
     }
 }
