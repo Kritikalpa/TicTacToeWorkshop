@@ -19,6 +19,7 @@ namespace TicTacToeWorkshop
             this.selectLetter();
             this.showBoard();
             this.currentPlayer = this.getWhoStartsFirst();
+            Console.WriteLine(this.currentPlayer);
             while (!this.gameOver)
             {
                 if(this.currentPlayer == "player")
@@ -103,7 +104,6 @@ namespace TicTacToeWorkshop
         {
             Random random = new Random();
             int choice = random.Next(0,2);
-            Console.WriteLine(choice);
             return (choice == 0) ? "player" : "computer"; 
         }
 
@@ -162,7 +162,8 @@ namespace TicTacToeWorkshop
             if (winningMove != 0) return winningMove;
             int playerWinningMove = this.getWinningMove(this.player);
             if (playerWinningMove != 0) return playerWinningMove;
-            
+            int cornerIndexMove = getCornerPosition();
+            if (cornerIndexMove != 0) return cornerIndexMove;
             return 0;
         }
 
@@ -186,6 +187,19 @@ namespace TicTacToeWorkshop
                 }
             }
             
+            return 0;
+        }
+
+        public int getCornerPosition()
+        {
+            int[] cornerIndex = { 1, 3, 7, 9 };
+            foreach(int index in cornerIndex)
+            {
+                if(isSpaceFree(index, this.board))
+                {
+                    return index;
+                }
+            }
             return 0;
         }
     }
